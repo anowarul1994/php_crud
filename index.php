@@ -1,10 +1,5 @@
 <?php
-include "config.php";
-
-
-
-
-?>
+include "config.php";?>
 
 
 <!doctype html>
@@ -26,7 +21,6 @@ include "config.php";
                             <a class="btn btn-dark float-end" href="create.php"  style="margin-top:-42px;">Add</a>
                         </div>
                         <div class="card-body">
-
                             <table class="table table-striped table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -38,16 +32,33 @@ include "config.php";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Md Anowarul Islam</td>
-                                        <td>m.anowarul1994@gmail.com</td>
-                                        <td>0170000000</td>
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="#">Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="#">Delete</a>
-                                        </td>
-                                    </tr>
+                                <?php
+                                    //sql query
+                                    $sql = "SELECT * FROM `users`";
+                                    $result = mysqli_query($connect, $sql);
+                                    if($result){
+                                        while($row = mysqli_fetch_assoc($result)){
+                                            $id = $row['id'];
+                                            $name = $row['name'];
+                                            $email = $row['email'];
+                                            $phone = $row['phone'];
+                                            
+                                            echo '<tr>
+                                            <th scope="row">'.$id.'</th>
+                                            <td>'.$name.'</td>
+                                            <td>'.$email.'</td>
+                                            <td>'.$phone.'</td>
+                                            <td>
+                                                <a href="edit.php?id='.$id.'" class="btn btn-info btn-sm" >Edit</a>
+                                                <a href="?id='.$id.'" class="btn btn-danger btn-sm" >Delete</a>
+                                            </td>
+                                        </tr>';
+                                        }
+                                    }
+                                ?>
+                                 
+                                    
+                                  
                                 </tbody>
                             </table>
                         </div>
