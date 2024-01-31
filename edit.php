@@ -1,7 +1,33 @@
 <?php
 include "config.php";
 
+    // input value show
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM `users` WHERE id='$id'";
+    $result = mysqli_query($connect, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $name = $row['name'];
+    $email = $row['email'];
+    $phone = $row['phone'];
+    
+// date update
+if(isset($_POST['update'])){
+    
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
 
+    // SQL Qurey
+    $sql = "UPDATE `users` set id= '$id', name='$name', email= '$email', phone='$phone' WHERE id ='$id'";
+    $result = mysqli_query($connect, $sql);
+
+    if($result){
+        header('location:index.php');
+    }else{
+        die(mysqli_error($connect));
+    }
+
+};
 
 
 ?>
@@ -27,18 +53,18 @@ include "config.php";
                             <a class="btn btn-dark float-end" href="index.php"  style="margin-top:-42px;">Back</a>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form action ="" method ="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" value="" name="name" class="form-control" id="name" placeholder="Enter your name">
+                                    <input type="text" value="<?php echo $name; ?>" name="name"  class="form-control" id="name" placeholder="Enter your name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" value="" name="email" class="form-control" id="email" placeholder="Enter your email address">     
+                                    <input type="email" value="<?php echo $email; ?>" name="email" class="form-control" id="email" placeholder="Enter your email address">     
                                 </div>
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Phone</label>
-                                    <input type="tel" value="" name="phone" class="form-control" id="phone" placeholder="Enter your phone number">     
+                                    <input type="tel" value="<?php echo $phone; ?>" name="phone" class="form-control" id="phone" placeholder="Enter your phone number">     
                                 </div>
                                 <button type="submit" name="update" class="btn btn-primary">Update</button>
                             </form>
