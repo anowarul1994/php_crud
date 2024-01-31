@@ -1,6 +1,21 @@
 <?php
 include "config.php";
+    if(isset($_POST['submit'])){
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
 
+        // SQL Qurey
+        $sql = "INSERT INTO users(name, email, phone) VALUES('$name', '$email', '$phone')";
+        $result = mysqli_query($connect, $sql);
+
+        if($result){
+            header('location:index.php');
+        }else{
+            die(mysqli_error($connect));
+        }
+
+    };
 
 
 
@@ -29,7 +44,7 @@ include "config.php";
                             <a class="btn btn-success float-end" href="index.php"  style="margin-top:-42px;">List</a>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form action="" method="POST">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name">
